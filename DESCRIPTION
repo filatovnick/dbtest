@@ -11,6 +11,7 @@ Imports:
     yaml
 Suggests:
     testthat
+Remotes: rstats-db/DBI@v0.3.1.9010
 License: MIT + file LICENSE
 LazyData: true
 RoxygenNote: 5.0.1
