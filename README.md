@@ -61,6 +61,10 @@ db_test_that("The first value of my test column is 'hello world'", {
 })
 ```
 
+## Examples
+
+* [Use in cachemeifyoucan](https://github.com/robertzk/cachemeifyoucan/blob/master/tests/testthat/test-data_integrity.R).
+
 
 ## Installation
 
