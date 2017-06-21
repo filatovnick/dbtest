@@ -55,9 +55,11 @@ with_test_db <- function(expr) {
 
   ## Once we're done testing, we want to make sure connections will go on as normal, so we should
   ## disconnect our test database and unmock the connection.
-  on.exit({
-    DBI::dbDisconnect(test_con)
-    unmock_dbConnect(DBI_namespace, old_dbConnect) })
+  ## That is, unless we supplied a connection object manually.
+  if (is.null(con <- getOption("dbtest.test_con"))) {
+    on.exit({
+      DBI::dbDisconnect(test_con)
+      unmock_dbConnect(DBI_namespace, old_dbConnect) }) }
 
   ## But first we have to actually mock the connection and then evaluate their R expression with
   ## the mocked connection in place.

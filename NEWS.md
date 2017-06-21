@@ -1,4 +1,7 @@
-# Version 0.0.2.9002
+# Version 0.0.2.9004
+- Don't disconnect from a connection supplied with `dbtest.test_con` option.
+
+# Version 0.0.2.9003
 - Set `dbtest.test_con` option to a valid db connection in order to overwrite `dbtest::db_test_con`.
 
 # Version 0.0.2.9002
