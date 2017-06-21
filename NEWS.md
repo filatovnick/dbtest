@@ -1,4 +1,7 @@
 # Version 0.0.2.9002
+- Set `dbtest.test_con` option to a valid db connection in order to overwrite `dbtest::db_test_con`.
+
+# Version 0.0.2.9002
 - Added a get_options utility to be able to handle arbitrarily deeply nested config structures.
 
 # Version 0.0.2.9001

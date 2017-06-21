@@ -4,6 +4,7 @@
 #' @export
 db_test_con <- function(...) {
   ## Use the database.yml specified in inst/database.yml to create a test connection.
+  if (!is.null(con <- getOption("dbtest.test_con"))) { return(con) }
   test_database_yml <- system.file(package = "dbtest", "database.yml")
   ## Try to make a db_connection with that test specificiation.
   tryCatch({ db_connection(test_database_yml, env = "test", ...)
@@ -33,7 +34,7 @@ with_test_db <- function(expr) {
   ## whatever connection the package specifies, assuming that package uses DBI.
 
   ## This is done by replacing DBI::dbConnect with a connection to the test database.
-  DBI_namespace <- getNamespace("DBI") 
+  DBI_namespace <- getNamespace("DBI")
   old_dbConnect <- DBI::dbConnect
 
   ## This is the new dbConnect function we're going to replace.
@@ -57,7 +58,7 @@ with_test_db <- function(expr) {
   on.exit({
     DBI::dbDisconnect(test_con)
     unmock_dbConnect(DBI_namespace, old_dbConnect) })
- 
+
   ## But first we have to actually mock the connection and then evaluate their R expression with
   ## the mocked connection in place.
   mock_dbConnect(DBI_namespace, new_dbConnect)
@@ -99,7 +100,7 @@ db_test_that <- function(description, test) {
     ## However, we're assigning it in the GlobalEnv because I couldn't figure out how to
     ## get it assigned in the correct scope, given all the testthat layers between this
     ## and the actual tests.
-    assign("test_con", test_con, envir = .GlobalEnv) 
+    assign("test_con", test_con, envir = .GlobalEnv)
     ## When we're done running the tests, clean up our test connection object so we don't
     ## pollute the global namespace.
     on.exit(rm("test_con", envir = .GlobalEnv))
